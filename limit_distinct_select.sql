@@ -22,3 +22,8 @@ where gender="M";
 select registration_no from students
 where gender="F";
  
+ 
+ SELECT first_name FROM students WHERE gender = 'M'
+UNION
+SELECT first_name FROM lectures WHERE gender = 'M';
+
