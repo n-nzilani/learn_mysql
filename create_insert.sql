@@ -123,5 +123,64 @@ INSERT INTO units (unit_code, unit_name, course_code, lecture_id) VALUES
 drop table students;
 commit;
 
+INSERT INTO students (first_name, last_name, registration_no, phone_no, gender, DOB, course_code) VALUES
+('James', 'Kariuki', 'REG011', 719000011, 'M', '2000-05-03', 'CS01'),
+('Grace', 'Wanjiku', 'REG012', 719000012, 'F', '2001-09-15', 'ICT01'),
+('Mark', 'Otieno', 'REG013', 719000013, 'M', '1999-12-22', 'ENG01'),
+('Esther', 'Chebet', 'REG014', 719000014, 'F', '2002-03-10', 'BS01'),
+('Kevin', 'Mutua', 'REG015', 719000015, 'M', '2001-07-08', 'MATH01');
+
+drop table students;
+commit;
+
+show tables;
+
+CREATE TABLE enrollments (
+    enrollment_id INT AUTO_INCREMENT PRIMARY KEY,
+    student_id INT,
+    unit_code VARCHAR(20),
+    grade INT,
+    FOREIGN KEY (student_id) REFERENCES students(student_id),
+    FOREIGN KEY (unit_code) REFERENCES units(unit_code)
+);
+INSERT INTO enrollments (student_id, unit_code, grade) VALUES
+(1, 'U101', 78),
+(1, 'U102', 85),
+(2, 'U101', 60),
+(3, 'U103', 90),
+(4, 'U104', 72),
+(5, 'U105', 88),
+(6, 'U106', 95),
+(7, 'U107', 70),
+(8, 'U108', 82),
+(9, 'U109', 77),
+(10,'U110', 91);
+
+CREATE TABLE classrooms (
+    room_id INT AUTO_INCREMENT PRIMARY KEY,
+    room_name VARCHAR(50),
+    capacity INT
+);
+INSERT INTO classrooms (room_name, capacity) VALUES
+('Lab 1', 30),
+('Lab 2', 25),
+('Room A', 40),
+('Room B', 35);
+CREATE TABLE timetable (
+    timetable_id INT AUTO_INCREMENT PRIMARY KEY,
+    unit_code VARCHAR(20),
+    room_id INT,
+    day_of_week VARCHAR(10),
+    start_time TIME,
+    end_time TIME,
+    FOREIGN KEY (unit_code) REFERENCES units(unit_code),
+    FOREIGN KEY (room_id) REFERENCES classrooms(room_id)
+);
+INSERT INTO timetable (unit_code, room_id, day_of_week, start_time, end_time) VALUES
+('U101', 1, 'Monday', '09:00:00', '11:00:00'),
+('U102', 2, 'Tuesday', '10:00:00', '12:00:00'),
+('U103', 1, 'Wednesday', '08:00:00', '10:00:00'),
+('U104', 3, 'Thursday', '09:00:00', '11:00:00'),
+('U105', 4, 'Friday', '11:00:00', '13:00:00');
 show tables;
 
